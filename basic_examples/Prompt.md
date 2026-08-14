@@ -1,19 +1,10 @@
-Before creating a new utility, search the project for any existing log sanitization, encoding, escaping, or security utility that can safely handle CWE-117.
-
-If one exists, reuse it.
-
-If none exists, propose the smallest reusable LogSanitizer needed for CR/LF log-injection protection.
-
-Do not modify files yet.
-Keep the response concise.
-Fix only the first 5 CWE-117 findings using the approved/common sanitization pattern.
-Rules:
-No business-logic changes.
-No unrelated refactoring.
-Preserve existing logger levels/messages.
-Modify only required files.
-Do not analyze unrelated vulnerabilities.
-After editing, give only:
-files changed
-findings fixed
-tests run/results
+For the 154 through-wrapper findings:
+Implement CR/LF neutralization at the appropriate central logging boundary in MessageLoggerImpl.
+Reuse an existing project sanitizer if one exists; otherwise create the smallest appropriate reusable sanitizer.
+Preserve existing log levels, messages, and application behavior.
+Do not modify business logic.
+For the 8 bypass findings:
+Fix them individually using the same validated CR/LF neutralization approach where appropriate.
+Do not blindly change unrelated logger statements.
+If any bypass requires different handling, leave it unchanged and report why.
+Keep the changes minimal:
