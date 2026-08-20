@@ -1,32 +1,35 @@
-QA Validation – LSR V4 Security Fixes Deployed
 Hi Team,
-The LSR V4 security fixes have been deployed to the QA environment.
-The changes primarily impact User Management, access request/approval flows, notification emails, Excel export, and application error handling. There are no intended changes to the normal business functionality.
-Key Functionalities / Validations
-User Access Request & Approval
-Validate Request User Access and My Approvals flows with valid requests.
-Verify requester, security-group and request details remain correct, including when multiple requests are submitted concurrently.
-Verify that request data is not shared or overwritten between users.
-Approval Notification Email
-Submit an access request containing HTML/script-related content in the applicable user-input field.
-Verify the content in the approval notification is displayed as encoded/plain text and is not rendered or executed as HTML/script.
-Verify normal notification content and formatting continue to work.
-Excel Export / Overview
-Verify Excel export continues to work correctly for valid requests.
-Validate the affected error scenario and confirm that stack traces, Java class/method names, source-code line numbers, file paths, or other internal application details are not exposed to the user.
-Verify normal Overview functionality is unaffected.
-Add New User / Error Handling
-Validate the Add New User flow for valid requests.
-For an error/invalid request, verify that a controlled validation/error message is displayed (e.g., “Unable to add user, contact support”).
-Verify that JDBC/Hibernate exception details, nested exceptions, SQL/database information, stack traces, or other internal implementation details are not exposed.
-Regression Validation
-Please verify that the following continue to work as expected:
-Request User Access
-My Approvals / Accept / Reject
-User Management functionality
-Approval notification emails
-Add New User
-Overview
-Excel Export
-Please share the validation results and any functional regression observed during QA testing.
-Thanks,
+The V4 vulnerability fixes have been deployed to QA. Please validate the following security scenarios and perform the mentioned regression checks.
+1. CWE-80 – HTML Injection in Access Request Notification Email
+Vulnerability: User-controlled content submitted through an access request could contain arbitrary HTML, which could be included in the approval notification email.
+Fix: User-controlled content has been properly encoded/neutralized before being included in the notification email.
+QA Testing:
+Submit an access request with HTML/script-related test content in the applicable field (e.g., Reason).
+Check the approval notification email received by the approver.
+Verify that the HTML tags are displayed as encoded/plain text and are not rendered as HTML.
+Verify that no script executes or unintended HTML/links are generated.
+Verify that normal notification email formatting continues to work.
+2. CWE-209 – Information Exposure Through Error Message
+Vulnerability: An authenticated user could trigger an error through the affected Overview/Excel Export flow, and the response exposed internal implementation details such as Java exceptions, class/method names and source-code line numbers.
+Fix: Error handling was updated to prevent stack traces and internal implementation details from being exposed to the user.
+QA Testing:
+Using an authenticated user, reproduce the affected Overview/Excel Export error scenario using Postman/the applicable API request.
+Inspect the HTTP response and response body.
+Verify that Java exceptions, stack traces, class/method names, source-code line numbers, internal paths, or other implementation details are not exposed.
+Verify that an appropriate generic error response is returned.
+Verify that valid Excel export requests continue to work successfully.
+3. Data Integrity / Concurrent Request
+Vulnerability/Fix: Concurrent requests could potentially result in request data being incorrectly shared between users.
+QA Testing:
+Submit requests concurrently using different users and different request details/security groups.
+Verify that each request retains the correct requester, security group and request information.
+Verify that one user's request data is not displayed in another user's request or notification.
+4. Information Disclosure via Exception Message
+Vulnerability: The Get Admin Information request with Request ID = Add New User previously exposed backend exception details in the response, including JDBC/Hibernate exception information such as Could not execute JDBC batch update and nested exception details.
+Fix: Backend exception details are now handled internally and replaced with a controlled validation/error message.
+QA Testing:
+Using an authenticated user, invoke Get Admin Information through Postman with Request ID = Add New User.
+Inspect the response body.
+Verify that the response provides the expected controlled message, such as “Unable to add user, contact support”, under the validation/error message.
+Verify that JDBC, Hibernate, nested exception details, stack traces, class/method names, SQL/database details, or other internal implementation information are not exposed.
+Also verify that the normal Add New User functionality continues to work for valid requests.
