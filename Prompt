@@ -1,6 +1,2 @@
-Testing Steps:
-Open the LSR application and navigate to the Portfolio – Overview screen.
-Please do regression testing for the LSR application and verify the existing functionality after the Vulnerability Fixes (V3 & V4).
-Select the required Entity Level and entities, provide the required Formula under the Calc By tab, and provide the required date/filter criteria under the Filter By tab.
-Navigate to the Overview tab and click the Refresh button to calculate and fetch the returns.
-Verify that the returns are calculated and displayed correctly and that there are no unexpected UI, functional, or data-access changes due to the vulnerability fixes.
+grep -n -E '<modules>|<module>|<packaging>|<artifactId>' pom.xml
+find . -maxdepth 3 \( -name "pom.xml" -o -name "*.iml" -o -name "settings.gradle" -o -name "settings.gradle.kts" \)
