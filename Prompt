@@ -1,2 +1,234 @@
-grep -n -E '<modules>|<module>|<packaging>|<artifactId>' pom.xml
-find . -maxdepth 3 \( -name "pom.xml" -o -name "*.iml" -o -name "settings.gradle" -o -name "settings.gradle.kts" \)
+Review and Complete the AI Vulnerability Remediation Automation Project
+
+I have already created a project and generated some initial files using GitHub Copilot.
+
+I want to build an AI-powered vulnerability remediation application using Python, React, Git, RTC, Veracode and Black Duck.
+
+Your task is to review the existing implementation, identify missing functionality, and complete the application without unnecessarily rewriting the existing code.
+
+1. Analyze the existing project
+
+Before making changes:
+
+- Read the existing README.md, AGENTS.md, configuration files, Python files and React components.
+- Understand the current architecture and implemented functionality.
+- Compare the implementation against all the requirements below.
+- Identify which requirements are fully implemented, partially implemented or missing.
+- Identify the relevant files and explain what needs to be changed.
+- Reuse existing modules and components wherever possible.
+
+After completing the analysis, implement the missing functionality.
+
+Do not create duplicate files, duplicate modules or unnecessary new architecture.
+
+2. Excel upload and vulnerability processing
+
+The application must allow the user to upload an Excel file containing multiple vulnerabilities.
+
+For example, the Excel file may contain 21 vulnerabilities.
+
+The application must:
+
+- Read the vulnerability ID, description, severity, affected file, version information and other available fields.
+- Create a separate remediation record for every vulnerability.
+- Maintain an independent status, workflow history and evidence for each vulnerability.
+- Allow the user to track all vulnerabilities from a single dashboard.
+
+3. Reproduce the vulnerability before fixing it
+
+Before suggesting or applying a code fix, the application must attempt to reproduce the vulnerability.
+
+The user must be able to provide the authorized development URL of the application being tested.
+
+For example, the user may provide the LSR application development URL.
+
+The application must:
+
+- Identify the relevant test scenario based on the vulnerability description.
+- Access the configured development environment using an approved browser automation tool.
+- Execute the reproduction scenario.
+- Capture screenshots showing the reproduced vulnerability.
+- Save the reproduction results, test steps, timestamp and screenshots against the corresponding vulnerability ID.
+
+If the vulnerability cannot be reproduced, the application must display the reason and allow the human to review the finding.
+
+Do not assume that a vulnerability is reproduced merely because the application URL is accessible.
+
+Do not proceed with an automatic fix when the reproduction result is inconclusive and reproduction is required.
+
+4. AI-based vulnerability analysis and fix generation
+
+After the initial reproduction attempt:
+
+- Analyze the affected source code.
+- Identify the root cause of the vulnerability.
+- Generate a minimal and appropriate code fix.
+- Explain why the change addresses the vulnerability.
+- Identify the affected files and methods.
+- Generate relevant test cases.
+- Run the available tests and configured checks.
+
+The AI must not blindly modify business functionality.
+
+For risky changes, unclear business rules or uncertain fixes, pause the workflow and request human intervention.
+
+5. Human intervention through the UI
+
+The application must provide a mechanism for human intervention directly through the React dashboard.
+
+When human intervention is required:
+
+- Pause the workflow for the particular vulnerability.
+- Display the vulnerability details, AI explanation, proposed fix, reproduction evidence and reason for requesting review.
+- Allow the human to provide additional instructions, suggestions or corrections through the UI.
+- Allow the AI to use the human's input to generate a revised fix.
+- Display the revised changes for review.
+
+The application must preserve the workflow state while waiting for human input.
+
+After receiving the human's response, resume from the same vulnerability without restarting the entire workflow.
+
+6. Individual vulnerability dashboard and evidence
+
+For every vulnerability, provide a dedicated detailed view containing the following tabs or sections:
+
+Vulnerability details
+
+Display the vulnerability ID, description, severity, affected file and current remediation status.
+
+Before & After Evidence
+
+Display the following information:
+
+- Before-fix screenshot.
+- Before-fix reproduction result.
+- Test scenario and steps.
+- After-fix screenshot.
+- After-fix verification result.
+- Test execution timestamps.
+
+Allow the user to view the before-and-after screenshots side by side and open them at full size.
+
+Each screenshot and test result must be associated with the correct vulnerability ID and remediation attempt.
+
+Do not fabricate screenshots or claim that a vulnerability has been reproduced or fixed without actual test evidence.
+
+Suggested Changes
+
+Display:
+
+- AI explanation of the vulnerability.
+- Proposed code changes.
+- Affected files.
+- Test results.
+- Any warnings or risks identified by AI.
+
+Allow the user to review the changes before committing.
+
+Build and Security Results
+
+Display the RTC build status, build number, Veracode findings and Black Duck findings associated with the remediation attempt.
+
+7. Commit and push workflow
+
+The application must use a dedicated remediation branch.
+
+When the user reviews the proposed changes and clicks the Commit button:
+
+- Validate that the configured checks have passed.
+- Commit the approved changes to the dedicated branch.
+- Push the changes to the remote repository.
+- Never commit directly to a protected or main branch.
+- Display the commit ID and push status in the UI.
+
+The application must not commit or push unapproved changes.
+
+The workflow must handle Git failures without losing the current remediation state.
+
+8. Automatic RTC build
+
+After a successful commit and push:
+
+- Automatically trigger the RTC build for the correct branch.
+- Track the build status.
+- Display the build number, build result and relevant logs in the UI.
+- Continue to security validation only after the required build completes successfully.
+
+Do not assume that RTC supports a particular API or integration.
+
+Inspect the available configuration and document the supported mechanism required to trigger builds programmatically.
+
+If the current environment does not support automatic RTC triggering, implement a clearly defined integration interface and report what configuration or access is still required.
+
+9. Veracode and Black Duck validation
+
+After the RTC build completes successfully:
+
+- Retrieve the corresponding Veracode and Black Duck scan reports.
+- Compare the new findings against the original vulnerability list.
+- Identify resolved, unresolved and newly introduced findings.
+- Display the results in the UI.
+- Associate each result with the correct vulnerability and build.
+
+If vulnerabilities remain:
+
+- Allow AI to analyze the remaining findings.
+- Generate another proposed fix.
+- Repeat the review, commit, build and validation process as appropriate.
+
+The application must not mark a vulnerability as resolved solely because AI believes the fix is correct.
+
+The final resolution status must be based on the configured security validation results.
+
+10. Multiple vulnerability processing
+
+The application must support processing multiple vulnerabilities independently.
+
+For example, if the uploaded Excel contains 21 vulnerabilities:
+
+- Create 21 separate remediation records.
+- Track the status of each vulnerability independently.
+- Maintain separate before-and-after screenshots and test results.
+- Maintain separate proposed changes, commit references and build results.
+- Allow one vulnerability to be paused for human intervention while other eligible vulnerabilities continue processing.
+- Provide an overall dashboard showing the status of all 21 vulnerabilities.
+
+The application should support sequential processing initially and allow safe parallel processing in the future.
+
+Do not combine unrelated vulnerability fixes into one commit unless explicitly configured and approved.
+
+11. Workflow safety and reliability
+
+Implement the following safeguards:
+
+- Use only explicitly configured and authorized development or test environments.
+- Never run vulnerability reproduction tests against production environments.
+- Use approved test accounts and test data.
+- Do not perform destructive tests without explicit authorization.
+- Keep credentials in environment variables or an approved secrets-management system.
+- Never expose credentials in logs, screenshots or generated reports.
+- Implement proper error handling, retry handling and workflow-state persistence.
+- Prevent duplicate commits and duplicate build triggers.
+- Preserve the workflow state when the application restarts.
+- Require human review for risky or uncertain security changes.
+
+12. Expected implementation
+
+The final application should provide the following complete workflow:
+
+Excel upload → Vulnerability analysis → Before-fix reproduction → Screenshot capture → AI fix generation → Human intervention when required → Code review → Commit and push → RTC build → Veracode and Black Duck validation → After-fix reproduction → Screenshot capture → Final remediation status.
+
+13. Final response
+
+After reviewing and implementing the missing functionality:
+
+- Summarize what was already implemented.
+- List the functionality that was missing.
+- List the files created or modified.
+- Explain how the complete workflow operates.
+- Identify any external configuration, API access, credentials or permissions still required.
+- Explain how to run the application and test the complete demo.
+
+Do not claim that a feature is fully implemented unless the actual code supports it.
+
+Prioritize a working end-to-end demonstration over unnecessary architectural complexity.
