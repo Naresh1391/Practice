@@ -1,44 +1,12 @@
-Analyze the entire existing project, including source code, configuration, UI, dependencies and integrations.
-
-Create a concise but complete technical document named "CURRENT_PROJECT_DOCUMENTATION.md" in the project root.
-
-Strict instructions:
-
-- Do not modify any existing application code or configuration.
-- Do not implement, delete, rename or restructure anything.
-- Document only what is actually implemented. Do not make assumptions.
-- Inspect all relevant modules and files, not just the main classes.
-- Avoid lengthy explanations and repeated information.
-- Do not omit important technical details just to make the document shorter.
-
-Cover these 10 areas:
-
-1. Project overview: Purpose, features, technology stack, Java version and build tool.
-2. Architecture: Package structure, important classes, interfaces, entry point and execution flow.
-3. UI: Every screen, component, input, button, action and its backend connection.
-4. Workflow: Excel upload, parsing, vulnerability processing, AI prompt generation, response handling and code modification.
-5. AI integration: OpenAI API configuration, classes, methods, models, prompt templates, request/response formats, API-key handling, errors and retries.
-6. Git integration: Repository selection, project paths, branch handling, file modifications, diffs, commits and rollback, if implemented.
-7. Vulnerability processing: Excel columns and mappings, finding identification, source-file/line-number mapping, duplicate handling and remediation workflow.
-8. Configuration: All dependencies, configuration files, environment variables and external services.
-9. Limitations: Incomplete features, hardcoded values, security concerns, missing functionality and error-handling gaps.
-10. Source code reference: Important file paths, class names, method names and their responsibilities.
-
-For every major feature, clearly indicate its status:
-
-- Implemented
-- Partially implemented
-- Not implemented
-- Could not determine
-
-Final output requirements:
-
-- Use compact tables and bullet points.
-- Include exact class names, method names, file paths and dependency names wherever relevant.
-- Include actual implementation details rather than generic descriptions.
-- Highlight the current AI integration and the exact points where it connects to the application.
-- Highlight reusable components and areas that would need modification to support GitHub Copilot SDK with bundled runtime.
-- Keep the document concise, ideally 4–6 pages, but prioritize completeness over page count.
-- Do not create additional documentation files.
-
-Before finishing, cross-check the document against the project structure to ensure no major module or integration has been missed.
+Message
+Analyze the entire AES AI Workflow repository and provide a brief technical overview.
+Please explain:
+Project Overview: What is this project designed to do?
+Technology Stack: Which programming languages, frameworks, and tools are used?
+Architecture: Explain the major components and how they interact.
+AI Integration: How does the application communicate with GitHub Copilot or other AI tools?
+Vulnerability Remediation: How are vulnerabilities identified, analyzed, and automatically fixed?
+Workflow: Explain the complete process from vulnerability input to code modification and commit.
+Important Files: Identify key folders, classes, skills, agents, and configuration files.
+Keep the explanation simple, concise, and technical. Include relevant file paths and class names.
+Do not modify any files. Only analyze the existing repository.
