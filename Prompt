@@ -1,12 +1,4 @@
 Message
-Analyze the entire AES AI Workflow repository and provide a brief technical overview.
-Please explain:
-Project Overview: What is this project designed to do?
-Technology Stack: Which programming languages, frameworks, and tools are used?
-Architecture: Explain the major components and how they interact.
-AI Integration: How does the application communicate with GitHub Copilot or other AI tools?
-Vulnerability Remediation: How are vulnerabilities identified, analyzed, and automatically fixed?
-Workflow: Explain the complete process from vulnerability input to code modification and commit.
-Important Files: Identify key folders, classes, skills, agents, and configuration files.
-Keep the explanation simple, concise, and technical. Include relevant file paths and class names.
-Do not modify any files. Only analyze the existing repository.
+Explain the complete implementation of OpenAIFixEngine and FixEngineRouter.
+Show how vulnerability details and source code are sent to the AI model, how the AI-generated fix is received, and how the proposed code changes are returned to the application.
+Also explain whether the implementation supports GitHub Copilot CLI or only OpenAI-compatible HTTP APIs. Include relevant Java methods and code flow. Do not modify any files.
